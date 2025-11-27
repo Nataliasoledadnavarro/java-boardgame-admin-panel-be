@@ -12,7 +12,10 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/products")
-@CrossOrigin(origins = "http://localhost:3000")
+@CrossOrigin(origins = {
+    "http://localhost:3000",
+    "https://boardgames-admin-panel-fe.vercel.app"
+})
 public class ProductController {
 
     private final ProductService productService;

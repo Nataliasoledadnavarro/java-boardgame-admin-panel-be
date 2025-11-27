@@ -1,5 +1,6 @@
 package com.adminpanel.backend.controller;
 
+import com.adminpanel.backend.exception.CategoryHasProductsException;
 import com.adminpanel.backend.model.Category;
 import com.adminpanel.backend.service.CategoryService;
 import jakarta.validation.Valid;
@@ -8,11 +9,16 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Map;
+
 import java.util.List;
 
 @RestController  // Indica que esta clase maneja peticiones HTTP y retorna JSON
 @RequestMapping("/api/categories")  // Todas las rutas empiezan con /api/categories
-@CrossOrigin(origins = "http://localhost:3000")  // Permite peticiones desde tu frontend Next.js
+@CrossOrigin(origins = {
+    "http://localhost:3000",
+    "https://boardgames-admin-panel-fe.vercel.app"
+})
 public class CategoryController {
 
     private final CategoryService categoryService;
@@ -62,12 +68,18 @@ public class CategoryController {
 
     // DELETE /api/categories/{id} - Eliminar categoría
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteCategory(@PathVariable Long id) {
-        if (categoryService.findById(id).isPresent()) {
-            categoryService.deleteById(id);  
-            // Aquí se ejecuta la validación: "¿tiene productos?"
-            return ResponseEntity.noContent().build();  // 204 No Content
+    public ResponseEntity<?> deleteCategory(@PathVariable Long id) {
+        if (categoryService.findById(id).isEmpty()) {
+            return ResponseEntity.notFound().build();  // 404 si no existe
         }
-        return ResponseEntity.notFound().build();  // 404 si no existe
+        
+        try {
+            categoryService.deleteById(id);
+            return ResponseEntity.noContent().build();  // 204 No Content
+        } catch (CategoryHasProductsException e) {
+            // 409 Conflict con mensaje descriptivo
+            return ResponseEntity.status(HttpStatus.CONFLICT)
+                    .body(Map.of("error", e.getMessage()));
+        }
     }
 }

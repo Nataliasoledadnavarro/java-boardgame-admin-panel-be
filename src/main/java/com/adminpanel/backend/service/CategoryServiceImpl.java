@@ -1,5 +1,6 @@
 package com.adminpanel.backend.service;
 
+import com.adminpanel.backend.exception.CategoryHasProductsException;
 import com.adminpanel.backend.model.Category;
 import com.adminpanel.backend.repository.CategoryRepository;
 import com.adminpanel.backend.repository.ProductRepository;
@@ -56,8 +57,8 @@ public class CategoryServiceImpl implements CategoryService {
         // ⚠️ Validation: don't delete if it has products
         long productCount = productRepository.countByCategoryId(id);
         if (productCount > 0) {
-            throw new RuntimeException(
-                    "Cannot delete category with associated products");
+            throw new CategoryHasProductsException(
+                    "Cannot delete category with id " + id + ". It has " + productCount + " associated product(s)");
         }
         categoryRepository.deleteById(id);
     }
