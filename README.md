@@ -121,7 +121,7 @@ Accede directamente desde:
 ---
 Puedes acceder al video demo:
 
-👉 [https://www.veed.io/view/es-ES/fca82af2-0fa5-4d38-b86d-2b4d0c29e88b?panel=share/](https://www.veed.io/view/es-ES/fca82af2-0fa5-4d38-b86d-2b4d0c29e88b?panel=share)
+👉 [Demo](https://www.veed.io/view/es-ES/fca82af2-0fa5-4d38-b86d-2b4d0c29e88b?panel=share)
 
 ---
 ## 👩‍💻 Autoría
