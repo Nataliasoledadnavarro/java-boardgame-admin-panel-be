@@ -119,7 +119,11 @@ Accede directamente desde:
 - `GET    /api/products/category/{id}` — Productos por categoría
 
 ---
+Puedes acceder al video demo:
 
+👉 [https://www.veed.io/view/es-ES/fca82af2-0fa5-4d38-b86d-2b4d0c29e88b?panel=share/](https://www.veed.io/view/es-ES/fca82af2-0fa5-4d38-b86d-2b4d0c29e88b?panel=share)
+
+---
 ## 👩‍💻 Autoría
 
 Proyecto realizado por Natalia Navarro como parte del curso de Java.
